@@ -79,7 +79,7 @@ router.post('/', protect, authorize('admin', 'supervisor'), async (req, res, nex
 // Record document completion
 router.post('/:id/complete', protect, authorize('officer'), async (req, res, next) => {
   try {
-    const { score, answers } = req.body;
+    const { score } = req.body;
     
     const document = await Document.findById(req.params.id);
     

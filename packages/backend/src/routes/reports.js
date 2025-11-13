@@ -198,7 +198,7 @@ router.get('/export/:type', protect, authorize('admin', 'supervisor'), async (re
     let filename;
     
     switch (type) {
-      case 'timesheets':
+      case 'timesheets': {
         const shifts = await Shift.find({
           status: 'completed',
           'checkIn.time': startDate ? { $gte: new Date(startDate) } : undefined,
@@ -208,8 +208,8 @@ router.get('/export/:type', protect, authorize('admin', 'supervisor'), async (re
         data = shifts;
         filename = `timesheets_${Date.now()}`;
         break;
-        
-      case 'incidents':
+      }
+      case 'incidents': {
         const incidents = await Incident.find({
           reportedAt: {
             ...(startDate && { $gte: new Date(startDate) }),
@@ -220,8 +220,8 @@ router.get('/export/:type', protect, authorize('admin', 'supervisor'), async (re
         data = incidents;
         filename = `incidents_${Date.now()}`;
         break;
-        
-      case 'patrols':
+      }
+      case 'patrols': {
         const patrols = await Patrol.find({
           startTime: {
             ...(startDate && { $gte: new Date(startDate) }),
@@ -232,7 +232,7 @@ router.get('/export/:type', protect, authorize('admin', 'supervisor'), async (re
         data = patrols;
         filename = `patrols_${Date.now()}`;
         break;
-        
+      }
       default:
         return res.status(400).json({ error: { message: 'Invalid export type' } });
     }

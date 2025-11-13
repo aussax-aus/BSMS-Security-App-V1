@@ -2,8 +2,6 @@ const cron = require('node-cron');
 const Shift = require('../models/Shift');
 const WelfareCheck = require('../models/WelfareCheck');
 const User = require('../models/User');
-const Site = require('../models/Site');
-const config = require('../config');
 
 // Run welfare check scheduler every 5 minutes
 cron.schedule('*/5 * * * *', async () => {
